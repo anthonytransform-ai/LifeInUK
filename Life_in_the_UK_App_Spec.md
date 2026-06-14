@@ -130,3 +130,15 @@ Please execute the following tasks in order:
 1. Apply the color palette and typography rules from Section 2.
 2. Ensure English text and Chinese text are stacked (flex-col) inside buttons and text blocks, not side-by-side. 
 3. Run a final test simulating a mobile viewport to ensure no horizontal scrolling and all buttons are easily tappable.
+
+---
+
+## 6. Knowledge Distillation (Lessons Learned)
+
+### Next.js Static Export on GitHub Pages
+1. **The `_next` 404 Issue:** By default, GitHub Pages uses Jekyll, which ignores directories starting with an underscore (like `_next`). To solve this, you must deploy a `.nojekyll` file at the root. When using `gh-pages`, the CLI ignores dotfiles, so you must use the `-t` or `--dotfiles` and `--nojekyll` flags (`gh-pages -d out -t --nojekyll`).
+2. **PWA Manifest 404:** Hardcoding `<link rel="manifest" href="/manifest.json" />` inside `layout.tsx` is prone to path resolution issues when deployed on a subpath (e.g., `/LifeInUK`). Use the native `app/manifest.ts` file provided by Next.js App Router (ensuring it exports `const dynamic = "force-static"`). Next.js will automatically generate the correct `<link>` tags respecting `basePath` and `assetPrefix`.
+3. **Dynamic Routes Prefetch Bug (`__next.test.[setId].txt`):** When using `output: "export"` with dynamic routes (`[setId]`), the Next.js client-side router may incorrectly attempt to fetch the dynamic template payload instead of the fully generated static file when a user hovers over a `<Link>`. To fix this:
+   - Ensure `export const dynamicParams = false;` is declared in the dynamic `page.tsx` so Next.js knows there are strictly no dynamic parameters.
+   - Set `trailingSlash: true` in `next.config.ts` to map static paths perfectly to index.html structures, which GitHub pages inherently supports.
+   - Set `prefetch={true}` explicitly on `<Link>` components for dynamic routes to force the router to fetch the exact static payload rather than the generic template.
