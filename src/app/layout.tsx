@@ -17,14 +17,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Life in the UK Mock Test",
   description: "Bilingual Life in the UK Mock Test App",
-  manifest: "/manifest.json",
+  manifest: "/LifeInUK/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "LifeInUK",
   },
   icons: {
-    apple: "/icons/apple-touch-icon.png",
+    apple: "/LifeInUK/icons/apple-touch-icon.png",
   },
 };
 
