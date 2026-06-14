@@ -34,6 +34,7 @@ export default function ResultsClient({ mockTest, answers, score }: ResultsClien
         <h2 className="text-2xl font-bold text-gray-900">Review Questions</h2>
         <Link 
           href="/"
+          prefetch={true}
           className="min-h-[48px] px-6 rounded-lg border border-gray-300 font-bold text-gray-700 bg-white hover:bg-gray-100 flex items-center"
         >
           Back to Dashboard

@@ -4,6 +4,8 @@ import { MockTestSet } from "@/types";
 import TestEngineClient from "./TestEngineClient";
 import { notFound } from "next/navigation";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   try {
     const filePath = path.join(process.cwd(), "src", "data", "mock_tests.json");

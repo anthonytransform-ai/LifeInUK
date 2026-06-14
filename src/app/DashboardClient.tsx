@@ -41,6 +41,7 @@ export default function DashboardClient({ mockTests }: DashboardClientProps) {
           <Link
             key={set.setId}
             href={`/test/${set.setId}`}
+            prefetch={true}
             className="block border border-gray-200 rounded-lg p-6 bg-white hover:bg-gray-50 transition-colors shadow-sm focus:ring-4 focus:ring-blue-200 min-h-[48px]"
           >
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
