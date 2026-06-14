@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Life in the UK Mock Test",
   description: "Bilingual Life in the UK Mock Test App",
-  manifest: "/LifeInUK/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
