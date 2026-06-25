@@ -44,3 +44,5 @@ next-env.d.ts
 AGENTS.md
 CLAUDE.md
 *.pdf
+
+.j_os/project-link.local.md
