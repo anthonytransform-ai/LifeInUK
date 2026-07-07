@@ -2,4 +2,4 @@
 2:I[39756,["/LifeInUK/_next/static/chunks/2t8yyem4st7i0.js","/LifeInUK/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
 3:I[37457,["/LifeInUK/_next/static/chunks/2t8yyem4st7i0.js","/LifeInUK/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"4pjsAc4jpTlafmxECN_lQ"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"qRy20_q4XlT1ra-yPK9sl"}
