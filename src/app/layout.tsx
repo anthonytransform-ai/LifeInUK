@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://anthonytransform-ai.github.io/LifeInUK"),
+  metadataBase: new URL("https://anthonytransform-ai.github.io"),
   title: "Life in the UK Mock Test",
   description: "Bilingual Life in the UK Mock Test App",
   appleWebApp: {
