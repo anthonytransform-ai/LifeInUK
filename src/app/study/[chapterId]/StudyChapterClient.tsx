@@ -12,22 +12,18 @@ export default function StudyChapterClient({ chapterId, chapter }: { chapterId: 
   const { progress, updateProgress, isEnglish, toggleLanguage } = useStudyContext();
   
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const savedIndex = progress[chapterId] || 0;
     setCurrentIndex(savedIndex);
-    setIsLoaded(true);
   }, [chapterId, progress]);
-
-  if (!isLoaded) return <div className="p-8 text-center">Loading...</div>;
 
   const totalPoints = chapter.points.length;
   if (totalPoints === 0) {
     return (
       <div className="p-8 text-center">
         <p className="mb-4">No content found for this chapter.</p>
-        <Link href="/study" className="text-blue-600 underline">Back to chapters</Link>
+        <Link href="/study" prefetch={false} className="text-blue-600 underline">Back to chapters</Link>
       </div>
     );
   }
@@ -58,8 +54,8 @@ export default function StudyChapterClient({ chapterId, chapter }: { chapterId: 
       <div className="sticky top-[72px] z-10 bg-[#f9fafb] py-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-6 border-b border-gray-200 sm:border-0 shadow-sm sm:shadow-none">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <Link href="/study" className="text-blue-600 hover:text-blue-800 text-sm font-bold flex items-center gap-1 mb-1">
-              <svg xmlns="http://www.0000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <Link href="/study" prefetch={false} className="text-blue-600 hover:text-blue-800 text-sm font-bold flex items-center gap-1 mb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
               {isEnglish ? "Back" : "返回"}

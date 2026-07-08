@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import studyGuideData from "@/data/study_guide.json";
 import { useStudyContext } from "@/context/StudyContext";
@@ -30,7 +30,7 @@ export default function StudyIndexPage() {
           const progressPct = total === 0 ? 0 : Math.round((current / total) * 100);
 
           return (
-            <Link href={`/study/${chapter.chapterId}`} key={chapter.chapterId}>
+            <Link href={`/study/${chapter.chapterId}`} prefetch={false} key={chapter.chapterId}>
               <div className="bg-white border-2 border-gray-200 rounded-xl p-5 hover:border-blue-500 hover:shadow-md transition-all group">
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-3">

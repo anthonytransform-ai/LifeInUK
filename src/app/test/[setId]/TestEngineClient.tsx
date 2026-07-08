@@ -1,14 +1,30 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { MockTestSet, Progress } from "@/types";
 import BilingualText from "@/components/BilingualText";
 import ResultsClient from "./ResultsClient";
 import { calculateScore } from "@/utils/score";
 
+function readProgress(): Progress {
+  try {
+    const saved = window.localStorage.getItem("lifeinuk_progress");
+    return saved ? JSON.parse(saved) : {};
+  } catch (e) {
+    console.error("Failed to read test progress", e);
+    return {};
+  }
+}
+
+function writeProgress(progress: Progress) {
+  try {
+    window.localStorage.setItem("lifeinuk_progress", JSON.stringify(progress));
+  } catch (e) {
+    console.error("Failed to write test progress", e);
+  }
+}
+
 export default function TestEngineClient({ mockTest }: { mockTest: MockTestSet }) {
-  const router = useRouter();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [timeLeft, setTimeLeft] = useState(45 * 60); // 45 minutes
@@ -41,10 +57,9 @@ export default function TestEngineClient({ mockTest }: { mockTest: MockTestSet }
     setIsFinished(true);
 
     const passed = newScore >= 18;
-    const saved = localStorage.getItem("lifeinuk_progress");
-    const progress: Progress = saved ? JSON.parse(saved) : {};
+    const progress = readProgress();
     progress[mockTest.setId] = { score: newScore, passed, answers };
-    localStorage.setItem("lifeinuk_progress", JSON.stringify(progress));
+    writeProgress(progress);
   };
 
   const handleSelect = (optionId: string) => {

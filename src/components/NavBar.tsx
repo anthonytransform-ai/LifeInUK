@@ -10,14 +10,14 @@ export default function NavBar() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-10 w-full">
       <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="hover:opacity-75 transition-opacity mr-4" title="Back to Home">
+        <Link href="/" prefetch={false} className="hover:opacity-75 transition-opacity mr-4" title="Back to Home">
           <h1 className="text-xl font-bold text-gray-900">Life in the UK</h1>
         </Link>
         <div className="flex-1 flex gap-4 px-2 sm:px-4 text-sm sm:text-base">
-          <Link href="/" className="font-bold text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
+          <Link href="/" prefetch={false} className="font-bold text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
             {showChinese ? "模擬考試" : "Tests"}
           </Link>
-          <Link href="/study" className="font-bold text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
+          <Link href="/study" prefetch={false} className="font-bold text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap">
             {showChinese ? "溫習指南" : "Study"}
           </Link>
         </div>
