@@ -1,2 +1,2 @@
-:HL["/LifeInUK/_next/static/chunks/210f98n0pnnhe.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"8YX0PEJR228mriOrtQXU6"}
+:HL["/LifeInUK/_next/static/chunks/34aoju-z_amq3.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"J7HZuW0RMncaO-mc-BlPg"}
