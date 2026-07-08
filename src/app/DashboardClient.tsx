@@ -11,21 +11,17 @@ interface DashboardClientProps {
 
 export default function DashboardClient({ mockTests }: DashboardClientProps) {
   const [progress, setProgress] = useState<Progress>({});
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("lifeinuk_progress");
-    if (saved) {
-      try {
+    try {
+      const saved = window.localStorage.getItem("lifeinuk_progress");
+      if (saved) {
         setProgress(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse progress", e);
       }
+    } catch (e) {
+      console.error("Failed to load progress", e);
     }
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <div className="grid gap-4">
@@ -41,7 +37,7 @@ export default function DashboardClient({ mockTests }: DashboardClientProps) {
           <Link
             key={set.setId}
             href={`/test/${set.setId}`}
-            prefetch={true}
+            prefetch={false}
             className="block border border-gray-200 rounded-lg p-6 bg-white hover:bg-gray-50 transition-colors shadow-sm focus:ring-4 focus:ring-blue-200 min-h-[48px]"
           >
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
