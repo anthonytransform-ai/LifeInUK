@@ -11,18 +11,34 @@ interface StudyContextType {
 
 const StudyContext = createContext<StudyContextType | undefined>(undefined);
 
+function readStorage(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch (e) {
+    console.error(`Failed to read ${key}`, e);
+    return null;
+  }
+}
+
+function writeStorage(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch (e) {
+    console.error(`Failed to write ${key}`, e);
+  }
+}
+
 export function StudyProvider({ children }: { children: ReactNode }) {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
   const [progress, setProgress] = useState<Record<string, number>>({});
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("lifeinuk_study_lang");
+    const savedLang = readStorage("lifeinuk_study_lang");
     if (savedLang !== null) {
       setIsEnglish(savedLang === "true");
     }
 
-    const savedProgress = localStorage.getItem("lifeinuk_study_progress");
+    const savedProgress = readStorage("lifeinuk_study_progress");
     if (savedProgress) {
       try {
         setProgress(JSON.parse(savedProgress));
@@ -30,13 +46,12 @@ export function StudyProvider({ children }: { children: ReactNode }) {
         console.error("Failed to parse study progress", e);
       }
     }
-    setIsLoaded(true);
   }, []);
 
   const toggleLanguage = () => {
     setIsEnglish((prev) => {
       const next = !prev;
-      localStorage.setItem("lifeinuk_study_lang", next.toString());
+      writeStorage("lifeinuk_study_lang", next.toString());
       return next;
     });
   };
@@ -44,13 +59,10 @@ export function StudyProvider({ children }: { children: ReactNode }) {
   const updateProgress = (chapterId: string, pointIndex: number) => {
     setProgress((prev) => {
       const next = { ...prev, [chapterId]: pointIndex };
-      localStorage.setItem("lifeinuk_study_progress", JSON.stringify(next));
+      writeStorage("lifeinuk_study_progress", JSON.stringify(next));
       return next;
     });
   };
-
-  // Prevent hydration mismatch by not rendering children until localStorage is read
-  if (!isLoaded) return null;
 
   return (
     <StudyContext.Provider value={{ isEnglish, toggleLanguage, progress, updateProgress }}>
