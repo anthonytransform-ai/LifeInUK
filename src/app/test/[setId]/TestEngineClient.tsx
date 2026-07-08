@@ -6,22 +6,22 @@ import BilingualText from "@/components/BilingualText";
 import ResultsClient from "./ResultsClient";
 import { calculateScore } from "@/utils/score";
 
+import { safeGetItem, safeSetItem } from "@/utils/storage";
+
 function readProgress(): Progress {
-  try {
-    const saved = window.localStorage.getItem("lifeinuk_progress");
-    return saved ? JSON.parse(saved) : {};
-  } catch (e) {
-    console.error("Failed to read test progress", e);
-    return {};
+  const saved = safeGetItem("lifeinuk_progress");
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch (e) {
+      console.error("Failed to parse test progress", e);
+    }
   }
+  return {};
 }
 
 function writeProgress(progress: Progress) {
-  try {
-    window.localStorage.setItem("lifeinuk_progress", JSON.stringify(progress));
-  } catch (e) {
-    console.error("Failed to write test progress", e);
-  }
+  safeSetItem("lifeinuk_progress", JSON.stringify(progress));
 }
 
 export default function TestEngineClient({ mockTest }: { mockTest: MockTestSet }) {

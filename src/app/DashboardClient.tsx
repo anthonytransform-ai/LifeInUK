@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { MockTestSet, Progress } from "@/types";
 import BilingualText from "@/components/BilingualText";
+import { safeGetItem } from "@/utils/storage";
 
 interface DashboardClientProps {
   mockTests: MockTestSet[];
@@ -13,13 +14,13 @@ export default function DashboardClient({ mockTests }: DashboardClientProps) {
   const [progress, setProgress] = useState<Progress>({});
 
   useEffect(() => {
-    try {
-      const saved = window.localStorage.getItem("lifeinuk_progress");
-      if (saved) {
+    const saved = safeGetItem("lifeinuk_progress");
+    if (saved) {
+      try {
         setProgress(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse progress", e);
       }
-    } catch (e) {
-      console.error("Failed to load progress", e);
     }
   }, []);
 

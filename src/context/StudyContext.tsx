@@ -11,34 +11,19 @@ interface StudyContextType {
 
 const StudyContext = createContext<StudyContextType | undefined>(undefined);
 
-function readStorage(key: string): string | null {
-  try {
-    return window.localStorage.getItem(key);
-  } catch (e) {
-    console.error(`Failed to read ${key}`, e);
-    return null;
-  }
-}
-
-function writeStorage(key: string, value: string) {
-  try {
-    window.localStorage.setItem(key, value);
-  } catch (e) {
-    console.error(`Failed to write ${key}`, e);
-  }
-}
+import { safeGetItem, safeSetItem } from "@/utils/storage";
 
 export function StudyProvider({ children }: { children: ReactNode }) {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
   const [progress, setProgress] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    const savedLang = readStorage("lifeinuk_study_lang");
+    const savedLang = safeGetItem("lifeinuk_study_lang");
     if (savedLang !== null) {
       setIsEnglish(savedLang === "true");
     }
 
-    const savedProgress = readStorage("lifeinuk_study_progress");
+    const savedProgress = safeGetItem("lifeinuk_study_progress");
     if (savedProgress) {
       try {
         setProgress(JSON.parse(savedProgress));
@@ -51,7 +36,7 @@ export function StudyProvider({ children }: { children: ReactNode }) {
   const toggleLanguage = () => {
     setIsEnglish((prev) => {
       const next = !prev;
-      writeStorage("lifeinuk_study_lang", next.toString());
+      safeSetItem("lifeinuk_study_lang", next.toString());
       return next;
     });
   };
@@ -59,10 +44,11 @@ export function StudyProvider({ children }: { children: ReactNode }) {
   const updateProgress = (chapterId: string, pointIndex: number) => {
     setProgress((prev) => {
       const next = { ...prev, [chapterId]: pointIndex };
-      writeStorage("lifeinuk_study_progress", JSON.stringify(next));
+      safeSetItem("lifeinuk_study_progress", JSON.stringify(next));
       return next;
     });
   };
+
 
   return (
     <StudyContext.Provider value={{ isEnglish, toggleLanguage, progress, updateProgress }}>
